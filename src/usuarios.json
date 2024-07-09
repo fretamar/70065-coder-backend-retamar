@@ -1,0 +1,91 @@
+[
+    {
+        "username": "bsubat",
+        "nombre": "Beltran",
+        "apellido": "Subat",
+        "email":"bsubat@gmail.com",
+        "edad": 18,
+        "genero": "Masculino"
+    },
+    {
+        "username": "jpalacios",
+        "nombre": "Jesus",
+        "apellido": "Palacios",
+        "email":"japalcios@yahoo.com",
+        "edad": 21,
+        "genero": "Masculino"
+    },
+    {
+        "username": "mvictorica",
+        "nombre": "Mateo",
+        "apellido": "Victorica",
+        "email":"mvictorica@hotmail.com",
+        "edad": 19,
+        "genero": "Masculino"
+    },
+    {
+        "username": "talescio",
+        "nombre": "Tobias",
+        "apellido": "Alescio",
+        "email":"talescio@gmail.com",
+        "edad": 14,
+        "genero": "Masculino"
+    },
+    {
+        "username": "gochoa",
+        "nombre": "Guillermo",
+        "apellido": "Ochoa",
+        "email":"gochoa@gmail.com",
+        "edad": 32,
+        "genero": "Masculino"
+    },
+    {
+        "username": "clopez",
+        "nombre": "Candelaria",
+        "apellido": "Lopez",
+        "email":"clopez@gmail.com",
+        "edad": 29,
+        "genero": "Femenino"
+    },
+    {
+        "username": "vgutierrez",
+        "nombre": "Victoria",
+        "apellido": "Gutierrez",
+        "email":"gutierrez@hotmail.com",
+        "edad": 24,
+        "genero": "Femenino"
+    },
+    {
+        "username": "cabaraldo",
+        "nombre": "Camila",
+        "apellido": "Baraldo",
+        "email":"cabaraldo@gmail.com",
+        "edad": 28,
+        "genero": "Femenino"
+    },
+    {
+        "username": "arodriguez",
+        "nombre": "Alfonsina",
+        "apellido": "Rodriguez",
+        "email":"arodriguez@hotmail.com",
+        "edad": 21,
+        "genero": "Femenino"
+    },
+    {
+        "username": "prusso",
+        "nombre": "Pedro",
+        "apellido": "Russo",
+        "email":"prusso@hotmail.com",
+        "edad": 15,
+        "genero": "Prefiero no decirlo"
+    },
+    {
+        "username": "jgonazlez",
+        "nombre": "Juan",
+        "apellido": "Gonzalez",
+        "email":"jgonzalez@gmail.com",
+        "edad": 25,
+        "genero": "Prefiero no decirlo"
+    }
+
+]

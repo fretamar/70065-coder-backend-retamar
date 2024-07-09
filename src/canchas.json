@@ -1,0 +1,72 @@
+[
+    {
+     "id": 1,
+    "nombre": "SB5",
+    "deporte": "Futbol",
+    "ubicacion": "Paternal",
+    "precio": 3000
+},
+{
+    "id": 2,
+   "nombre": "Platense",
+   "deporte": "Futbol",
+   "ubicacion": "Saavedra",
+   "precio": 4000
+},
+{
+    "id": 3,
+   "nombre": "Olimpia",
+   "deporte": "Futbol",
+   "ubicacion": "Caballito",
+   "precio": 2000
+},
+{
+    "id": 4,
+   "nombre": "Sport Club",
+   "deporte": "Futbol",
+   "ubicacion": "Belgrano",
+   "precio": 5000
+},
+{
+    "id": 5,
+   "nombre": "Club de amigos",
+   "deporte": "Futbol",
+   "ubicacion": "Palermo",
+   "precio": 7000
+},
+{
+    "id": 6,
+   "nombre": "Sociedad Hebraica",
+   "deporte": "Basquet",
+   "ubicacion": "Balvanera",
+   "precio": 2000
+},
+{
+    "id": 7,
+   "nombre": "Plaza J.J. Paso",
+   "deporte": "Basquet",
+   "ubicacion": "Belgrano",
+   "precio": 500
+},
+{
+    "id": 8,
+   "nombre": "Clutch",
+   "deporte": "Basquet",
+   "ubicacion": "Chacarita",
+   "precio": 5000
+},
+{
+    "id": 9,
+   "nombre": "Sociedad Hebraica",
+   "deporte": "Volley",
+   "ubicacion": "Balvanera",
+   "precio": 1500
+},
+{
+    "id": 10,
+   "nombre": "Driving Norte",
+   "deporte": "Golf",
+   "ubicacion": "Palermo",
+   "precio": 2500
+}
+]

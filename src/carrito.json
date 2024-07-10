@@ -1,6 +1,14 @@
 [
   {
-    "id": 123,
-    "product": "Cerveza Brahma"
+    "id": 1,
+    "product": "Gaseosa Fanta 2L"
+  },
+  {
+    "id": 2,
+    "product": "Gaseosa Sprite 2L"
+  },
+  {
+    "id": 3,
+    "product": "Gaseosa Coca Cola 2L"
   }
 ]

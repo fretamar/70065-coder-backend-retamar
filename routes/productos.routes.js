@@ -65,4 +65,22 @@ productosRouter.post('/products', (req, res) => {
     });
 });
 
+productosRouter.delete('/products/:pid', (req, res) => {
+    const id = req.params.pid;
+
+    fs.readFile('../backend/src/productos.json', 'utf-8', (err, data) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ error: 'Error interno del servidor' });
+        }
+        const products = JSON.parse(data);
+        const product = products.filter(product => product.id !== parseInt(id));
+        if (product) {
+            res.json(product);
+        } else {
+            res.status(404).json({ error: 'Producto no encontrado' });
+        }
+    });
+});
+
 export default productosRouter;

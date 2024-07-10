@@ -10,7 +10,7 @@ carritoRouter.post('/carts', (req, res) => {
 
         // Escribir el carrito en el archivo "carrito.json"
 
-        fs.readFile('carrito.json', 'utf-8', (err, data) => {
+        fs.readFile('../backend/src/carrito.json', 'utf-8', (err, data) => {
             if (err) {
                 console.error(err);
                 return res.status(500).json({ error: 'Error interno de servidor' });
@@ -19,7 +19,7 @@ carritoRouter.post('/carts', (req, res) => {
             const carts = JSON.parse(data);
             carts.push({ id, product });
 
-        fs.writeFile('carrito.json', JSON.stringify(carts, null, 2), err => {
+        fs.writeFile('../backend/src/carrito.json', JSON.stringify(carts, null, 2), err => {
             if (err) {
                 console.error(err);
                 return res.status(500).json({ error: 'Error interno de servidor' });
@@ -36,7 +36,7 @@ carritoRouter.post('/carts', (req, res) => {
 
 
 carritoRouter.get('/carts', (req, res) => {
-    fs.readFile('carrito.json', 'utf-8', (err, data) => {
+    fs.readFile('../backend/src/carrito.json', 'utf-8', (err, data) => {
         if (err) {
             console.error(err);
             return res.status(500).json({ error: 'Error interno del servidor' });
@@ -60,7 +60,7 @@ carritoRouter.get('/carts/:cid', (req, res) => {
 
     // Leer el archivo "carrito.json"
     
-    fs.readFile('carrito.json', 'utf-8', (err, data) => {
+    fs.readFile('../backend/src/carrito.json', 'utf-8', (err, data) => {
         if (err) {
             console.error(err);
             return res.status(500).json({ error: 'Error interno de servidor' });
@@ -87,7 +87,7 @@ carritoRouter.post('/:cid/product/:pid', (req, res) => {
 
     // Leer el archivo "carrito.json"
 
-    fs.readFile('carrito.json', 'utf-8', (err, data) => {
+    fs.readFile('../backend/src/carrito.json', 'utf-8', (err, data) => {
         if (err) {
             console.error(err);
             return res.status(500).json({ error: 'Error interno de servidor' });
@@ -101,7 +101,7 @@ carritoRouter.post('/:cid/product/:pid', (req, res) => {
 
             // Escribir los cambios en el archivo "carrito.json"
 
-            fs.writeFile('carrito.json', JSON.stringify(carts, null, 2), err => {
+            fs.writeFile('../backend/src/carrito.json', JSON.stringify(carts, null, 2), err => {
                 if (err) {
                     console.error(err);
                     return res.status(500).json({ error: 'Error interno de servidor' });

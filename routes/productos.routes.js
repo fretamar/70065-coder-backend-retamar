@@ -3,7 +3,7 @@ import fs from 'fs';
 const productosRouter = Router();
 
 productosRouter.get('/products', (req, res) => {
-    fs.readFile('productos.json', 'utf-8', (err, data) => {
+    fs.readFile('../backend/src/productos.json', 'utf-8', (err, data) => {
         if (err) {
             console.error(err);
             return res.status(500).json({ error: 'Error interno del servidor' });
@@ -23,7 +23,7 @@ productosRouter.get('/products', (req, res) => {
 productosRouter.get('/products/:pid', (req, res) => {
     const id = req.params.pid;
 
-    fs.readFile('productos.json', 'utf-8', (err, data) => {
+    fs.readFile('../backend/src/productos.json', 'utf-8', (err, data) => {
         if (err) {
             console.error(err);
             return res.status(500).json({ error: 'Error interno del servidor' });
@@ -43,7 +43,7 @@ productosRouter.get('/products/:pid', (req, res) => {
 productosRouter.post('/products', (req, res) => {
     const { title, description, price, status, stock, category } = req.body;
 
-    fs.readFile('productos.json', 'utf-8', (err, data) => {
+    fs.readFile('../backend/src/productos.json', 'utf-8', (err, data) => {
         if (err) {
             console.error(err);
             return res.status(500).json({ error: 'Error interno del servidor' });
@@ -54,7 +54,7 @@ productosRouter.post('/products', (req, res) => {
         const newProduct = { id, title, description, price, status, stock, category };
         products.push(newProduct);
 
-        fs.writeFile('productos.json', JSON.stringify(products, null, 2), err => {
+        fs.writeFile('../backend/src/productos.json', JSON.stringify(products, null, 2), err => {
             if (err) {
                 console.error(err);
                 return res.status(500).json({ error: 'Error interno del servidor' });

@@ -1,24 +1,3 @@
-import express from "express";
-
-const app = express();
-const PORT = 8080;
-
-let canchas = [{ "id": 1, "nombre": "SB5", "deporte": "Futbol", "ubicacion": "Paternal", "precio": 3000 },
-{ "id": 2, "nombre": "Platense", "deporte": "Futbol", "ubicacion": "Saavedra", "precio": 4000 },
-{ "id": 3, "nombre": "Olimpia", "deporte": "Futbol", "ubicacion": "Caballito", "precio": 2000 }]
-
-let usuarios = [{ "username": "bsubat", "nombre": "Beltran", "apellido": "Subat", "email": "bsubat@gmail.com", "edad": 18, "genero": "Masculino" },
-{ "username": "jpalacios", "nombre": "Jesus", "apellido": "Palacios", "email": "japalcios@yahoo.com", "edad": 21, "genero": "Masculino" },
-{ "username": "mvictorica", "nombre": "Mateo", "apellido": "Victorica", "email": "mvictorica@hotmail.com", "edad": 19, "genero": "Masculino" }]
-
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
-
-app.listen(PORT, () => {
-    console.log(`Server runing on port ${PORT}`)
-})
-
-
 //GET
 
 app.get('/usuarios', (req, res) => {
@@ -123,3 +102,4 @@ app.delete('/canchas/:id', (req, res) => {
     canchas = canchas.filter((cancha) => cancha.id !== canchaId)
     res.status(200).json({message: `Cancha con ID ${canchaId} eliminada correctamente`})
 })
+

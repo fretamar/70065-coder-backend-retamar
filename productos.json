@@ -1,0 +1,92 @@
+[
+    {
+        "id": 1,
+        "title": "Cerveza Heineken 1L",
+        "description": "Cerveza Heineken, retornable, en botella de vidrio de 1 litro. Bebida con alcohol",
+        "price": 1500,
+        "status": true,
+        "stock": 100,
+        "category": "Cerveza"
+    },
+    {
+        "id": 2,
+        "title": "Cerveza Stella Artois 1L",
+        "description": "Cerveza Stella Artois, retornable, en botella de vidrio de 1 litro. Bebida con alcohol",
+        "price": 1800,
+        "status": true,
+        "stock": 50 ,
+        "category": "Cerveza"
+    },
+    {
+        "id": 3,
+        "title": "Cerveza Heineken lata 500cc",
+        "description": "Cerveza Heineken, no retornable, en lata de 500cc. Bebida con alcohol",
+        "price": 1200,
+        "status": true,
+        "stock": 90,
+        "category": "Cerveza"
+    },
+    {
+        "id": 4,
+        "title": "Cerveza Stella Artois lata 500cc",
+        "description": "Cerveza Stella Artois, no retornable, en lata de 500cc. Bebida con alcohol",
+        "price": 800,
+        "status": true,
+        "stock": 75,
+        "category": "Cerveza"
+    },
+    {
+        "id": 5,
+        "title": "Vino Portillo Chardonnay",
+        "description": "Vino Portillo Chardonnay 1 litro, bodega Salentein. Botella de vidrio, bebida con alcohol",
+        "price": 3000,
+        "status": true,
+        "stock": 40,
+        "category": "Vino"
+    },
+    {
+        "id": 6,
+        "title": "Vino Portillo Malbec 1L",
+        "description": "Vino Portillo Malbec 1 litro, bodega Salentein. Botella de vidrio, bebida con alcohol",
+        "price": 5000,
+        "status": true,
+        "stock": 20,
+        "category": "Vino"
+    },
+    {
+        "id": 7,
+        "title": "Vino Nicasia Cabernet-Franc 1L",
+        "description": "Vino Nicasia Cabernet-Franc 1 litro, bodega Catena Zapata. Botella de vidrio, bebida con alcohol",
+        "price": 10000,
+        "status": false ,
+        "stock": 10,
+        "category": "Vino"
+    },
+    {
+        "id": 8,
+        "title": "Vino Trumpeter Malbec 1L",
+        "description": "Vino Trumpeter Malbec 1 litro, bodega Rutini. Botella de vidrio, bebida con alcohol",
+        "price": 8500,
+        "status": true,
+        "stock": 50,
+        "category": "Vino"
+    },
+    {
+        "id": 9,
+        "title": "Sprite 2L",
+        "description": "Sprite en botella descartable de 2 litros. Bebida sin alcohol",
+        "price": 1200,
+        "status": true ,
+        "stock": 200,
+        "category": "Gaseosa"
+    },
+    {
+        "id": 10,
+        "title": "Coca Cola Sin Azucar 2L",
+        "description": "Coca Cola sin azucar en botella descartable de 2 litros. Bebida sin alcohol",
+        "price": 1500,
+        "status": false ,
+        "stock": 200,
+        "category": "Gaseosa"
+    }
+]

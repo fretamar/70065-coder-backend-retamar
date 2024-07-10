@@ -83,4 +83,4 @@ productosRouter.delete('/products/:pid', (req, res) => {
     });
 });
 
-export default productosRouter;
+export default productosRouter

@@ -114,4 +114,4 @@ carritoRouter.post('/:cid/product/:pid', (req, res) => {
     });
 });
 
-export default carritoRouter;
+export default carritoRouter

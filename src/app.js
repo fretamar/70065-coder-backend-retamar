@@ -28,13 +28,13 @@ const socketServer = new Server(httpServer)
 
 let messages = []
 
-socketServer.on('connection', socket => {
+socketServer.on('connection', socketServer => {
     console.log("Nuevo cliente conectado")
 
-    socket.on('message', data => {
+    socketServer.on('message', data => {
         messages.push(data)
-        io.emit("messageLogs", messages)
-    })
+        socketServer.emit("messageLogs", messages)
+    }) 
 })
 
 

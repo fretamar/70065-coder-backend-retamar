@@ -58,7 +58,7 @@
     "title": "Vino Nicasia Cabernet-Franc 1L",
     "description": "Vino Nicasia Cabernet-Franc 1 litro, bodega Catena Zapata. Botella de vidrio, bebida con alcohol",
     "price": 10000,
-    "status": false,
+    "status": true,
     "stock": 10,
     "category": "Vino"
   },
@@ -85,8 +85,8 @@
     "title": "Coca Cola Sin Azucar 2L",
     "description": "Coca Cola sin azucar en botella descartable de 2 litros. Bebida sin alcohol",
     "price": 1500,
-    "status": false,
-    "stock": 200,
+    "status": true,
+    "stock": 300,
     "category": "Gaseosa"
   },
   {
@@ -97,5 +97,14 @@
     "status": true,
     "stock": 50,
     "category": "Gaseosa"
+  },
+  {
+    "id": 12,
+    "title": "Beto cuevas",
+    "description": "Cerveza Heineken, retornable, en botella de vidrio de 1 litro. Bebida con alcohol",
+    "price": 1500,
+    "status": true,
+    "stock": 100,
+    "category": "Cerveza"
   }
 ]

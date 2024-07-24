@@ -1,103 +1,110 @@
 import { Router } from 'express'
-import fs from 'fs'
+import fs from 'fs/promises'
+import path from 'path'
+import __dirname from '../src/utils.js'
+
 const carritoRouter = Router()
 
-
-carritoRouter.post('/carts', (req, res) => {
-    const { id, product } = req.body
-    if (id && product) {
-
-        fs.readFile('../backend/src/carrito.json', 'utf-8', (err, data) => {
-            if (err) {
-                console.error(err)
-                return res.status(500).json({ error: 'Error interno de servidor' })
-            }
-
-            const carts = JSON.parse(data)
-            carts.push({ id, product })
-
-        fs.writeFile('../backend/src/carrito.json', JSON.stringify(carts, null, 2), err => {
-            if (err) {
-                console.error(err)
-                return res.status(500).json({ error: 'Error interno de servidor' })
-            }
-            res.json({ id, product })
-        })
-    })
-} else {
-    res.status(400).json({ error: 'Se requiere ID y Producto' })
-}
-})
-
-
-carritoRouter.get('/carts', (req, res) => {
-    fs.readFile('../backend/src/carrito.json', 'utf-8', (err, data) => {
-        if (err) {
-            console.error(err)
-            return res.status(500).json({ error: 'Error interno del servidor' })
-        }
-
-        const cart = JSON.parse(data)  
-        const limit = req.query.limit
-
-        if (limit) {
-            res.json(cart.slice(0, limit))
-        } else {
-            res.json(cart)
-        }
-    })
-})
-
-carritoRouter.get('/carts/:cid', (req, res) => {
-    const id = req.params.cid
-
-    
-    fs.readFile('../backend/src/carrito.json', 'utf-8', (err, data) => {
-        if (err) {
-            console.error(err)
-            return res.status(500).json({ error: 'Error interno de servidor' })
-        }
-        const carts = JSON.parse(data)
-        const cart = carts.find(cart => cart.id ===parseInt(id))
-        if (cart) {
-            res.json(cart)
-        } else {
-            res.status(404).json({ error: 'Carrito no encontrado' })
-        }
-    })
-})
-
-carritoRouter.post('/:cid/product/:pid', (req, res) => {
-    const cartId = req.params.cid
-    const productId = req.params.pid
-    const productToAdd = {
-        product: productId,
-        quantity: 1
+const carrito = async () => {
+    try {
+        const data = await fs.readFile("../backend/src/carrito.json", "utf-8")
+        return JSON.parse(data)
+    } catch (err) {
+        console.error(err)
+        throw new Error('Error interno de servidor')
     }
+}
+const productos = async () => {
+    try {
+        const data = await fs.readFile("../backend/src/productos.json", "utf-8")
+        return JSON.parse(data)
+    } catch (err) {
+        console.error(err)
+        throw new Error('Error interno de servidor')
+    }
+}
 
-    fs.readFile('../backend/src/carrito.json', 'utf-8', (err, data) => {
-        if (err) {
-            console.error(err)
-            return res.status(500).json({ error: 'Error interno de servidor' })
+carritoRouter.get('/carts', async (req, res) => {
+    const carritos = await carrito()
+    res.json({ carritos })
+})
+
+carritoRouter.get('/carts/:cid', async (req, res) => {
+    try {
+        const carritos = await carrito()
+        let carritoId = carritos.find(c => c.id === req.params.cid)
+
+        if (!carritos) {
+            return res.status(404).json({ error: 'No existe el carrito' })
         }
 
-        const carts = JSON.parse(data)
-        const cartIndex = carts.findIndex(cart => cart.id === cartId)
+        const productosCarrito = carritoId.productos
 
-        if (cartIndex !== -1) {
-            carts[cartIndex].products.push(productToAdd)
+        res.json({ idCarrito: carritoId.id, productosCarrito })
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({ error: 'Error interno de servidor' })
+    }
+})
 
-            fs.writeFile('../backend/src/carrito.json', JSON.stringify(carts, null, 2), err => {
-                if (err) {
-                    console.error(err)
-                    return res.status(500).json({ error: 'Error interno de servidor' })
+carritoRouter.post('/carts', async (req, res) => {
+    try {
+        const carritos = await carrito()
+        const products = await productos()
+        
+        const nuevoCarritoId = carritos.length > 0 ? carritos[carritos.length - 1].id + 1 : 1
+        const nuevoCarrito = { id: String(nuevoCarritoId), productos: [] }
+
+        if (req.body.productos) {
+            for (const { id, quantity } of req.body.productos) {
+                const producto = products.find(p => p.id === id)
+                if (producto) {
+                    nuevoCarrito.productos.push({ id, quantity })
                 }
-                res.status(200).json({ message: 'Producto agregado al carrito exitosamente' })
-            })
-        } else {
-            res.status(404).json({ error: 'Carrito no encontrado' })
+            }
         }
-    })
+
+        carritos.push(nuevoCarrito)
+        await fs.writeFile('../backend/src/carrito.json', JSON.stringify(carritos, null, 2));
+
+        res.status(200).json({ message: 'Carrito creado exitosamente', carritoCreado: nuevoCarrito })
+    } catch (err) {
+        console.error(err)
+        res.status(500).json({ error: 'Error interno de servidor' })
+    }
+})
+
+carritoRouter.post('/carts/:cid/product/:pid', async (req, res) => {
+    try {
+        const carritos = await carrito()
+        const products = await productos()
+        let carritoId = carritos.find(c => c.id === req.params.cid)
+
+        if (!carritoId) {
+            return res.status(404).json({ error: 'No existe el carrito' })
+        }
+
+        let productoId = products.find(p => p.id === req.params.pid)
+
+        if (!productoId) {
+            return res.status(404).json({ error: 'Producto no encontrado' })
+        }
+
+        let productoCarrito = carritoId.products.find(p => p.id === productoId.id)
+
+        if (productoCarrito) {
+            productoCarrito.quantity += 1
+        } else {
+            carritoId.products.push({ id: productoId.id, quantity: 1 })
+        }
+
+        await fs.writeFile('../backend/src/carrito.json', JSON.stringify(carritos, null, 2))
+        res.status(200).json({ message: 'Producto agregado al carrito exitosamente', carrito: carritoId })
+
+    } catch (err) {
+        console.error(err)
+        res.status(500).json({ error: 'Error interno del servidor' })
+    }
 })
 
 export default carritoRouter

@@ -97,14 +97,5 @@
     "status": true,
     "stock": 50,
     "category": "Gaseosa"
-  },
-  {
-    "id": 12,
-    "title": "Beto cuevas",
-    "description": "Cerveza Heineken, retornable, en botella de vidrio de 1 litro. Bebida con alcohol",
-    "price": 1500,
-    "status": true,
-    "stock": 100,
-    "category": "Cerveza"
   }
 ]

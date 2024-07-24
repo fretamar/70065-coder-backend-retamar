@@ -25,7 +25,8 @@
     "nodemon": "^3.1.4",
     "s": "^1.0.0",
     "socket.io": "^4.7.5",
-    "sweetalert2": "^11.12.3"
+    "sweetalert2": "^11.12.3",
+    "uuid": "^10.0.0"
   },
   "description": "<h1 align=\"center\">\r   <p align=\"center\">1ra Pre-Entrega Backend avanzado 70065 - Francisco Retamar</p>\r   <img src=\"https://kinsta.com/es/wp-content/uploads/sites/8/2021/12/back-end-developer-1024x512.png\" alt=\"Backend Coderhouse\"></a>\r </h1>"
 }

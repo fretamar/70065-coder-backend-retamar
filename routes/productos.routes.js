@@ -1,16 +1,21 @@
-import { Router } from 'express';
-import fs from 'fs';
+import { Router } from 'express'
+import fs from 'fs/promises'
 import { body, validationResult } from 'express-validator'
 const productosRouter = Router()
 
-productosRouter.get('/products', (req, res) => {
-    fs.readFile('../backend/src/productos.json', 'utf-8', (err, data) => {
-        if (err) {
-            console.error(err)
-            return res.status(500).json({ error: 'Error interno del servidor' })
-        }
+const productos = async () => {
+    try {
+        const data = await fs.readFile("../backend/src/productos.json", "utf-8")
+        return JSON.parse(data)
+    } catch (err) {
+        console.error(err)
+        throw new Error('Error interno de servidor')
+    }
+}
 
-        const products = JSON.parse(data)
+productosRouter.get('/products', async (req, res) => {
+    try {
+        const products = await productos()
         const limit = req.query.limit
 
         if (limit) {
@@ -18,19 +23,16 @@ productosRouter.get('/products', (req, res) => {
         } else {
             res.json(products)
         }
-    });
-});
+    } catch (err) {
+        console.error(err)
+        res.status(500).json({ error: 'Error interno del servidor' })
+    }
+})
 
-productosRouter.get('/products/:pid', (req, res) => {
-    const id = req.params.pid
-
-    fs.readFile('../backend/src/productos.json', 'utf-8', (err, data) => {
-        if (err) {
-            console.error(err)
-            return res.status(500).json({ error: 'Error interno del servidor' })
-        }
-
-        const products = JSON.parse(data)
+productosRouter.get('/products/:pid', async (req, res) => {
+    try {
+        const products = await productos()
+        const id = req.params.pid
         const product = products.find(product => product.id === parseInt(id))
 
         if (product) {
@@ -38,7 +40,10 @@ productosRouter.get('/products/:pid', (req, res) => {
         } else {
             res.status(404).json({ error: 'Producto no encontrado' })
         }
-    })
+    } catch (err) {
+        console.error(err)
+        res.status(500).json({ error: 'Error interno del servidor' })
+    }
 })
 
 productosRouter.post('/products', [
@@ -47,94 +52,80 @@ productosRouter.post('/products', [
     body('price').isNumeric().withMessage('El precio debe ser un número'),
     body('stock').isNumeric().withMessage('El stock debe ser un número'),
     body('category').notEmpty().withMessage('La categoría es obligatoria')
-], (req, res) => {
-    const errores = validationResult(req);
+], async (req, res) => {
+    const errores = validationResult(req)
     if (!errores.isEmpty()) {
         return res.status(400).json({ errors: errores.array() })
     }
 
-    const { title, description, price, status, stock, category } = req.body
-    const newStatus = status || true
+    try {
+        const products = await productos()
+        const { title, description, price, status, stock, category } = req.body
+        const newStatus = status || true
 
-    fs.readFile('../backend/src/productos.json', 'utf-8', (err, data) => {
-        if (err) {
-            console.error(err)
-            return res.status(500).json({ error: 'Error interno del servidor' })
-        }
-
-        const products = JSON.parse(data)
         const id = products.length > 0 ? products[products.length - 1].id + 1 : 1
         const newProduct = { id, title, description, price, status: newStatus, stock, category }
-        products.push(newProduct)
 
-        fs.writeFile('../backend/src/productos.json', JSON.stringify(products, null, 2), err => {
-            if (err) {
-                console.error(err)
-                return res.status(500).json({ error: 'Error interno del servidor' })
-            }
-            res.json(newProduct)
-        })
-    })
+        products.push(newProduct)
+        await fs.writeFile('../backend/src/productos.json', JSON.stringify(products, null, 2))
+
+        res.json(newProduct)
+    } catch (err) {
+        console.error(err)
+        res.status(500).json({ error: 'Error interno del servidor' })
+    }
 })
 
-productosRouter.put('/products/:pid', (req, res) => {
+productosRouter.put('/products/:pid', async (req, res) => {
     const productId = parseInt(req.params.pid)
 
-    fs.readFile('../backend/src/productos.json', 'utf-8', (err, data) => {
-        if (err) {
-            console.error(err)
-            return res.status(500).json({ error: 'Error interno del servidor' })
-        }
+    try {
+        let products = await productos()
+        const productIndex = products.findIndex(product => product.id === productId)
 
-        let products = JSON.parse(data)
-        const product = products.find(product => product.id === productId)
-        if (product !== -1) {
+        if (productIndex !== -1) {
             const { title, description, price, stock, category } = req.body
-            products[product] = {
-                ...products[product],
+            products[productIndex] = {
+                ...products[productIndex],
                 title,
                 description,
                 price,
                 stock,
                 category
             }
-            fs.writeFile('../backend/src/productos.json', JSON.stringify(products, null, 2), err => {
-                if (err) {
-                    console.error(err);
-                    return res.status(500).json({ error: 'Error interno del servidor' })
-                }
-                res.json(products[product])
-            })
+
+            await fs.writeFile('../backend/src/productos.json', JSON.stringify(products, null, 2))
+            res.json(products[productIndex])
         } else {
             res.status(404).json({ message: "Producto no encontrado" })
         }
-    })
+    } catch (err) {
+        console.error(err)
+        res.status(500).json({ error: 'Error interno del servidor' })
+    }
 })
 
-productosRouter.delete('/products/:pid', (req, res) => {
-    const id = req.params.pid
+productosRouter.delete('/products/:pid', async (req, res) => {
+    try {
+        let products = await productos()
+        const idProducto = req.params.pid
+        const indiceProducto = products.findIndex(p => p.id === idProducto)
 
-    fs.readFile('../backend/src/productos.json', 'utf-8', (err, data) => {
-        if (err) {
-            console.error(err)
-            return res.status(500).json({ error: 'Error interno del servidor' })
-        }
-        const products = JSON.parse(data)
-        const product = products.filter(product => product.id !== parseInt(id))
-        if (product < products) {
-            res.json(product)
-        } else {
-            res.status(404).json({ error: 'Producto no encontrado' })
+        if (indiceProducto === -1) {
+            return res.status(404).json({ error: 'Producto no encontrado' })
         }
 
-        fs.writeFile('../backend/src/productos.json', JSON.stringify(product, null, 2), err => {
-            if (err) {
-                console.error(err)
-                return res.status(500).json({ error: 'Error interno del servidor' })
-            }
-            res.json(product)
-        })
-    })
+        products = products.filter(p => p.id !== idProducto)
+
+        await fs.writeFile('../backend/src/productos.json', JSON.stringify(products, null, 2))
+
+        res.status(200).json({ message: 'Producto eliminado exitosamente' })
+
+    } catch (err) {
+        console.error(err)
+        res.status(500).json({ error: 'Error interno de servidor' })
+    }
 })
+
 
 export default productosRouter

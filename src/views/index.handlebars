@@ -1,9 +1,16 @@
 <div>
-    <h1>¡Hola! Bienvenido</h1>
+    <h1>Backend - Francisco Retamar <i>#70065</i></h1>
+    <div>
+        {{#each productosRealTime}}
+        <p>Titulo: {{this.title}}</p>
+        <p>Descripción: {{this.description}}</p>
+        <p>Precio: {{this.price}}</p>
+        <p>Estado: Disponible</p>
+        <p>Cantidad: {{this.stock}}</p>
+        <p>Categoria: {{this.category}}</p>
+        {{/each}}
+    </div>
 </div>
-<input type="text" id="chatBox">
-<p id="messageLogs"></p>
-
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="/socket.io/socket.io.js"></script>

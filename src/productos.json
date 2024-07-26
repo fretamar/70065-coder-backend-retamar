@@ -1,14 +1,5 @@
 [
   {
-    "id": 1,
-    "title": "Cerveza Heineken 1L",
-    "description": "Cerveza Heineken, retornable, en botella de vidrio de 1 litro. Bebida con alcohol",
-    "price": 1500,
-    "status": true,
-    "stock": 100,
-    "category": "Cerveza"
-  },
-  {
     "id": 2,
     "title": "Cerveza Stella Artois 1L",
     "description": "Cerveza Stella Artois, retornable, en botella de vidrio de 1 litro. Bebida con alcohol",
@@ -97,5 +88,13 @@
     "status": true,
     "stock": 50,
     "category": "Gaseosa"
+  },
+  {
+    "title": "Cerveza Quilmes",
+    "description": "Botella de cerveza quilmes 1 litro",
+    "price": "1400",
+    "stock": "10",
+    "category": "Cerveza",
+    "id": 12
   }
 ]

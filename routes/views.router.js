@@ -14,10 +14,11 @@ const getProducts = async () => {
    }
 }
 
+
 viewsRouter.get('/realtimeproducts', async (req, res) => {
    try {
        const products = await getProducts()
-       res.render('realTimeProducts', { products })
+       res.render('realTimeProducts', { products })   
    } catch (err) {
        console.error(err)
        res.status(500).json({ error: 'Error interno del servidor' })

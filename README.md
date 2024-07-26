@@ -10,15 +10,19 @@ El mismo deberá mostrar la lista de productos creados hasta el momento, pudiend
 
 ## Endpoint /realtimeproducts 
 [/realtimeproducts](https://github.com/fretamar/70065-coder-backend-retamar/blob/main/assets/realtimeproducts%20-%20crear%20product.png?raw=true)
+<img src="https://github.com/fretamar/70065-coder-backend-retamar/blob/main/assets/realtimeproducts%20-%20crear%20product.png?raw=true" alt="endpoint /realtimeproducts"></a>
 
 ## Creación de producto desde form 
 [Creación de producto](https://github.com/fretamar/70065-coder-backend-retamar/blob/main/assets/realtimeproducts%20-%20crear%20product.png?raw=true)
+<img src="https://github.com/fretamar/70065-coder-backend-retamar/blob/main/assets/realtimeproducts%20-%20crear%20product.png?raw=true" alt="Creacion de producto"></a>
 
 ## Visualización en vivo de producto creado
 [Producto creado](https://github.com/fretamar/70065-coder-backend-retamar/blob/main/assets/realtimeproducts%20-%20prd%20creado.png?raw=true)
+<img src="https://github.com/fretamar/70065-coder-backend-retamar/blob/main/assets/realtimeproducts%20-%20prd%20creado.png?raw=true" alt="Producto creado"></a>
 
 ## Visaulización en vivo de producto eliminado 
 [Producto eliminado](https://github.com/fretamar/70065-coder-backend-retamar/blob/main/assets/realtimeproducts%20-%20prd%20eliminado.png?raw=true)
+<img src="https://github.com/fretamar/70065-coder-backend-retamar/blob/main/assets/realtimeproducts%20-%20prd%20eliminado.png?raw=true" alt="Producto eliminado"></a>
 
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

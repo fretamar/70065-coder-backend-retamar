@@ -3,6 +3,29 @@
   <img src="https://kinsta.com/es/wp-content/uploads/sites/8/2021/12/back-end-developer-1024x512.png" alt="Backend Coderhouse"></a>
 </h1>
 
+## 2da Pre-Entrega
+
+Configurar el proyecto para que trabaje con Handlebars y Websocket.
+El mismo deberá mostrar la lista de productos creados hasta el momento, pudiendo crear nuevos productos y también poder eliminar productos existentes.
+
+## Endpoint /realtimeproducts 
+[/realtimeproducts](https://github.com/fretamar/70065-coder-backend-retamar/blob/main/assets/realtimeproducts.png?raw=true)
+<img src="https://github.com/fretamar/70065-coder-backend-retamar/blob/main/assets/realtimeproducts.png?raw=true" alt="endpoint /realtimeproducts"></a>
+
+## Creación de producto desde form 
+[Creación de producto](https://github.com/fretamar/70065-coder-backend-retamar/blob/main/assets/realtimeproducts%20-%20crear%20product.png?raw=true)
+<img src="https://github.com/fretamar/70065-coder-backend-retamar/blob/main/assets/realtimeproducts%20-%20crear%20product.png?raw=true" alt="Creacion de producto"></a>
+
+## Visualización en vivo de producto creado
+[Producto creado](https://github.com/fretamar/70065-coder-backend-retamar/blob/main/assets/realtimeproducts%20-%20prd%20creado.png?raw=true)
+<img src="https://github.com/fretamar/70065-coder-backend-retamar/blob/main/assets/realtimeproducts%20-%20prd%20creado.png?raw=true" alt="Producto creado"></a>
+
+## Visaulización en vivo de producto eliminado 
+[Producto eliminado](https://github.com/fretamar/70065-coder-backend-retamar/blob/main/assets/realtimeproducts%20-%20prd%20eliminado.png?raw=true)
+<img src="https://github.com/fretamar/70065-coder-backend-retamar/blob/main/assets/realtimeproducts%20-%20prd%20eliminado.png?raw=true" alt="Producto eliminado"></a>
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ## 1ra Pre-Entrega
 
   Desarrollar el servidor basado en Node.JS y express, que escuche en el puerto 8080 y disponga de dos grupos de rutas: /products y /carts.

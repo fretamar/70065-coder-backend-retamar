@@ -6,6 +6,8 @@ import __dirname from "./utils.js"
 import viewsRouter from '../routes/views.router.js'
 import { Server } from 'socket.io'
 import fs from 'fs/promises'
+import mongoose from 'mongoose'
+import userRouter from '../routes/users.router.js'
 
 const app = express()
 const PORT = 8080
@@ -15,6 +17,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use('/', productosRouter)
 app.use('/', carritoRouter)
 app.use('/', viewsRouter)
+app.use('/', userRouter)
 
 // Configuración de Handlebars
 app.engine('handlebars', handlebars.engine())
@@ -22,11 +25,21 @@ app.set('views', __dirname + '/views')
 app.set('view engine', 'handlebars')
 app.use(express.static(__dirname + '/public'))
 
+
+mongoose.connect("mongodb+srv://franretamar:Knd281195.-@cluster0.oj1pn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+
+.then(()=> {
+    console.log("Conectado a la base de datos")
+})
+.catch(error=>{
+    console.error("Error al conectar a la base de datos", error)
+})
+
+
 const httpServer = app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
 const socketServer = new Server(httpServer)
 
 socketServer.on('connection', async socket => {
-    console.log("Nuevo cliente conectado")
 
     let products = await getProducts() 
 
@@ -65,9 +78,8 @@ socketServer.on('connection', async socket => {
             throw new Error('Error interno de servidor')
         }
     }
+
+    console.log("Nuevo cliente conectado")
 })
-
-
-
 
 export { socketServer }

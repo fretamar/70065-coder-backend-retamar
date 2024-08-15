@@ -1,13 +1,15 @@
+// app.js
 import express from 'express'
 import productosRouter from "../routes/productos.routes.js"
 import carritoRouter from "../routes/carrito.routes.js"
 import handlebars from "express-handlebars"
 import __dirname from "./utils.js"
 import viewsRouter from '../routes/views.router.js'
-import { Server } from 'socket.io'
-import fs from 'fs/promises'
 import mongoose from 'mongoose'
 import userRouter from '../routes/users.router.js'
+import { Server } from 'socket.io'
+import http from 'http'
+import productModel from './models/product.model.js'
 
 const app = express()
 const PORT = 8080
@@ -26,60 +28,47 @@ app.set('view engine', 'handlebars')
 app.use(express.static(__dirname + '/public'))
 
 
-mongoose.connect("mongodb+srv://franretamar:Knd281195.-@cluster0.oj1pn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+mongoose.connect("mongodb+srv://franretamar:Knd281195.-@cluster0.oj1pn.mongodb.net/coderBackend?retryWrites=true&w=majority&appName=Cluster0")
 
-.then(()=> {
-    console.log("Conectado a la base de datos")
-})
-.catch(error=>{
-    console.error("Error al conectar a la base de datos", error)
-})
+    .then(() => {
+        console.log("Conectado a la base de datos")
+    })
+    .catch(error => {
+        console.error("Error al conectar a la base de datos", error)
+    })
 
-
-const httpServer = app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
+const httpServer = http.createServer(app)
 const socketServer = new Server(httpServer)
+httpServer.listen(PORT, () => console.log(`Server running on port ${PORT}`))
+
 
 socketServer.on('connection', async socket => {
+    console.log("Nuevo cliente conectado")
 
-    let products = await getProducts() 
+    const productosFiltrados = async () => {
+        const productosActuales = {}
+        const products = await productModel.find(productosActuales).lean()
+        socket.emit('actualizarProductos', products)
+    }
 
     socket.on('agregarProducto', async product => {
-        const id = products.length > 0 ? products[products.length - 1].id + 1 : 1
-        product.id = id
-        products.push(product)
-    
         try {
-            await fs.writeFile('../backend/src/productos.json', JSON.stringify(products, null, 2))
-            socketServer.emit('actualizarProductos', products)
+            await productModel.create(product)
+            productosFiltrados()
         } catch (err) {
-            console.error("Error al guardar el producto:", err)
+            console.error("Error al agregar el producto:", err)
         }
     })
 
     socket.on('eliminarProducto', async idProducto => {
-        products = products.filter(product => product.id !== parseInt(idProducto)) 
-    
         try {
-            await fs.writeFile('../backend/src/productos.json', JSON.stringify(products, null, 2))
-            socketServer.emit('actualizarProductos', products)
+            await productModel.findByIdAndDelete(idProducto)
+            productosFiltrados()
         } catch (err) {
             console.error("Error al eliminar el producto:", err)
         }
     })
-
-    socket.emit('actualizarProductos', products) 
-
-    async function getProducts() {
-        try {
-            const data = await fs.readFile('../backend/src/productos.json', 'utf-8')
-            return JSON.parse(data)
-        } catch (err) {
-            console.error(err)
-            throw new Error('Error interno de servidor')
-        }
-    }
-
-    console.log("Nuevo cliente conectado")
 })
+
 
 export { socketServer }

@@ -1,6 +1,6 @@
 import Router from 'express'
-import userModel from '../src/models/user.model.js'
 const userRouter = Router()
+import userModel from '../src/models/user.model.js'
 
 userRouter.get('/users', async (req, res) => {
     try {
@@ -12,12 +12,12 @@ userRouter.get('/users', async (req, res) => {
 })
 
 userRouter.post('/users', async (req, res) => {
-    let { nombre, apellido, email } = req.body
-    if (!nombre || !apellido || !email) {
+    let { nombre, apellido, email, gender } = req.body
+    if (!nombre || !apellido || !email || !gender) {
         res.send({ status: "error", error: "Faltan parametros" })
     }
 
-    let result = await userModel.create({ nombre, apellido, email })
+    let result = await userModel.create({ nombre, apellido, email, gender })
     res.send({ result: "success", payload: result })
 })
 
@@ -25,7 +25,7 @@ userRouter.put('/:uid', async (req, res) => {
     let { uid } = req.params
 
     let usuarioModificado = req.body
-    if (!usuarioModificado.nombre || !usuarioModificado.apellido || !usuarioModificado.email) {
+    if (!usuarioModificado.nombre || !usuarioModificado.apellido || !usuarioModificado.email || !usuarioModificado.gender) {
         res.send({ status: "error", error: "Faltan completar datos" })
     }
 

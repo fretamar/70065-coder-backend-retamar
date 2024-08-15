@@ -21,20 +21,39 @@
         <button type="submit"><b>Agregar producto</b></button>
     </form>
 
+    {{#if isValid}}
     <div id="listaDeProductos">
         {{#each productosRealTime}}
-        <div class="producto" id="{{this.id}}">
+        <div class="producto" id="{{this._id}}">
             <p>Titulo: {{this.title}}</p>
             <p>Descripción: {{this.description}}</p>
             <p>Precio: {{this.price}}</p>
             <p>Cantidad: {{this.stock}}</p>
             <p>Categoría: {{this.category}}</p>
-            <button class="eliminarProducto">Eliminar Producto</button>
+            <button class="eliminarProducto" data-id="{{this._id}}">Eliminar Producto</button>
+            <button class="agregarCarrito" data-id="{{this._id}}">Agregar a carrito</button>
+
         </div>
         {{/each}}
     </div>
+    <br />
+    <div>
+        {{#if hasPrevPage}}
+        <a href="{{prevLink}}">
+            << Anterior</a>
+                {{/if}}
+                &nbsp
+                {{page}}
+                &nbsp
+                {{#if hasNextPage}}
+                <a href="{{nextLink}}">Siguiente >></a>
+                {{/if}}
+    </div>
+    {{else}}
+    <h1>No hay productos para mostrar</h1>
+    {{/if}}
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="/socket.io/socket.io.js"></script>
 <script src="/js/index.js"></script>
+<script src="/socket.io/socket.io.js"></script>

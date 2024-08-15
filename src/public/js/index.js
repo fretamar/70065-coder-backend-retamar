@@ -1,63 +1,60 @@
 const socketServer = io()
-let agregarProductos = document.getElementById("agregarProductos")
-let listaDeProductos = document.getElementById("listaDeProductos")
 
-Swal.fire({
-    title: "Ingresa tu edad",
-    input: "number",
-    text: "Edad",
-    inputValidator: (value) => {
-        const age = Number(value)
-        if (!value) {
-            return "Tienes que ingresar tu edad"
-        } else if (isNaN(age) || age <= 17) {
-            return "Tienes que ser mayor de edad para ingresar"
-        }
-        return null
-    },
-    allowOutsideClick: false,
-}).then(result => {
-    user = result.value
-    console.log("Bienvenido, puedes ingresar!")
+socketServer.on('connect', () => {
+    console.log('Conectado al servidor WebSocket')
 })
 
-agregarProductos.addEventListener("submit", evt => {
-    evt.preventDefault() 
+document.addEventListener('DOMContentLoaded', () => {
+    const agregarProductosForm = document.getElementById('agregarProductos')
+    if (agregarProductosForm) {
+        agregarProductosForm.addEventListener('submit', event => {
+            event.preventDefault()
 
-    const formData = new FormData(evt.target)
-    const product = {}
-    formData.forEach((value, key) => {
-        product[key] = value
-    })
+            const product = {
+                title: document.getElementById('title').value,
+                description: document.getElementById('description').value,
+                price: parseFloat(document.getElementById('price').value),
+                stock: parseInt(document.getElementById('stock').value),
+                category: document.getElementById('category').value,
+            }
 
-    console.log(product) 
+            socketServer.emit('agregarProducto', product)
 
-    socketServer.emit('agregarProducto', product)
-    agregarProductos.reset()
-})
+            agregarProductosForm.reset()
+        })
+    }
 
-listaDeProductos.addEventListener("click", evt => {
-    if (evt.target.classList.contains("eliminarProducto")) {
-        const idProducto = parseInt(evt.target.closest('.producto').getAttribute('id'), 10)
-        console.log(`Producto con id: ${idProducto} eliminado`)
-        socketServer.emit('eliminarProducto', idProducto)
+    const productList = document.getElementById('listaDeProductos')
+    if (productList) {
+        productList.addEventListener('click', event => {
+            if (event.target.classList.contains('eliminarProducto')) {
+                const productId = event.target.dataset.id
+                socketServer.emit('eliminarProducto', productId)
+            }
+        })
     }
 })
 
-socketServer.on('actualizarProductos', (products) => {
-    listaDeProductos.innerHTML = ''
+socketServer.on('actualizarProductos', products => {
+    const productList = document.getElementById('listaDeProductos')
+
+    productList.innerHTML = ''
+
     products.forEach(product => {
-        const producto = document.createElement('div')
-        producto.className = 'producto' 
-        producto.setAttribute('id', product.id)
-        producto.innerHTML = `
-            <p>Name: ${product.title}</p>
-            <p>Price: ${product.price}</p>
-            <p>Description: ${product.description}</p>
-            <p>Stock: ${product.stock}</p>
-            <p>Category: ${product.category}</p>
-            <button class="eliminarProducto">Eliminar Producto</button>
+        const productDiv = document.createElement('div')
+        productDiv.className = 'producto'
+        productDiv.id = product._id
+
+        productDiv.innerHTML = `
+            <p>Titulo: ${product.title}</p>
+            <p>Descripción: ${product.description}</p>
+            <p>Precio: ${product.price}</p>
+            <p>Cantidad: ${product.stock}</p>
+            <p>Categoría: ${product.category}</p>
+            <button class="eliminarProducto" data-id="${product._id}">Eliminar Producto</button>
+            <button class="agregarCarrito" data-id="${product._id}">Agregar a carrito</button>
         `
-        listaDeProductos.appendChild(producto)
+
+        productList.appendChild(productDiv)
     })
 })

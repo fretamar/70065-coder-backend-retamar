@@ -2,45 +2,26 @@ import { Router } from 'express'
 import fs from 'fs/promises'
 import path from 'path'
 import __dirname from '../src/utils.js'
-
 const carritoRouter = Router()
-
-const carrito = async () => {
-    try {
-        const data = await fs.readFile("../backend/src/carrito.json", "utf-8")
-        return JSON.parse(data)
-    } catch (err) {
-        console.error(err)
-        throw new Error('Error interno de servidor')
-    }
-}
-const productos = async () => {
-    try {
-        const data = await fs.readFile("../backend/src/productos.json", "utf-8")
-        return JSON.parse(data)
-    } catch (err) {
-        console.error(err)
-        throw new Error('Error interno de servidor')
-    }
-}
+import cartModel from '../src/models/cart.model.js'
+import productModel from '../src/models/product.model.js'
 
 carritoRouter.get('/carts', async (req, res) => {
-    const carritos = await carrito()
-    res.json({ carritos })
+    try {
+        let cart = await cartModel.find()
+        res.send({ result: "succes", payload: cart })
+    } catch (error) {
+        console.error(error)
+    }
 })
 
 carritoRouter.get('/carts/:cid', async (req, res) => {
     try {
-        const carritos = await carrito()
-        let carritoId = carritos.find(c => c.id === req.params.cid)
-
-        if (!carritos) {
+        let cartId = await cartModel.findById(req.params.cid)
+        if (!cartId) {
             return res.status(404).json({ error: 'No existe el carrito' })
         }
-
-        const productosCarrito = carritoId.productos
-
-        res.json({ idCarrito: carritoId.id, productosCarrito })
+        res.send({ result: "success", payload: cartId })
     } catch (error) {
         console.error(error)
         res.status(500).json({ error: 'Error interno de servidor' })
@@ -49,17 +30,17 @@ carritoRouter.get('/carts/:cid', async (req, res) => {
 
 carritoRouter.post('/carts', async (req, res) => {
     try {
-        const carritos = await carrito()
-        const products = await productos()
+        const carritos = await cartModel.find()
+        const products = await productModel.find()
         
         const nuevoCarritoId = carritos.length > 0 ? carritos[carritos.length - 1].id + 1 : 1
         const nuevoCarrito = { id: String(nuevoCarritoId), productos: [] }
 
-        if (req.body.productos) {
-            for (const { id, quantity } of req.body.productos) {
-                const producto = products.find(p => p.id === id)
-                if (producto) {
-                    nuevoCarrito.productos.push({ id, quantity })
+        if (req.body.products) {
+            for (const { id, quantity } of req.body.products) {
+                const product = products.find(p => p.id === id)
+                if (product) {
+                    nuevoCarrito.products.push({ id, quantity })
                 }
             }
         }

@@ -1,7 +1,103 @@
 <h1 align="center">
-  <p align="center">2da Pre-Entrega Backend avanzado 70065 - Francisco Retamar</p>
+  <p align="center">Entrega final Backend avanzado 70065 - Francisco Retamar</p>
   <img src="https://kinsta.com/es/wp-content/uploads/sites/8/2021/12/back-end-developer-1024x512.png" alt="Backend Coderhouse"></a>
 </h1>
+
+## Tabla de Contenidos
+1. [Instalación]
+2. [Configuración]
+3. [Uso]
+4. [Estructura del Proyecto]
+5. [Desarrollo]
+
+## Instalación
+
+- Node.js v14.17.0
+  
+### Dependencias 
+   - bootstrap
+   - dirname
+   - express
+   - express-handlebars
+   - express-websocket
+   - mongodb
+   - mongoose
+   - mongoose-paginate-v2
+   - socket.io
+   - sweetalert2
+    
+### Configuración
+1. Clonar el repositorio:
+   ```sh
+   git clone https://github.com/fretamar/70065-coder-backend-retamar
+2. Navegar hacia directorio principal
+   ```sh
+   cd backend
+3. Instalar dependencias
+   ```sh
+   npm install
+
+### Uso
+
+`PORT`: El puerto en el que la aplicación se ejecutará es: 8080.\
+`DB_URI`: mongodb+srv://franretamar:Knd281195.-@cluster0.oj1pn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+
+```sh
+npm start
+```
+
+### Estructura del proyecto
+```
+proyecto/
+📦src
+ ┣ 📂models
+ ┃ ┣ 📜cart.model.js
+ ┃ ┣ 📜product.model.js
+ ┃ ┗ 📜user.model.js
+ ┣ 📂public
+ ┃ ┗ 📂js
+ ┃ ┃ ┗ 📜index.js
+ ┣ 📂views
+ ┃ ┣ 📂layouts
+ ┃ ┃ ┗ 📜main.handlebars
+ ┃ ┣ 📜index.handlebars
+ ┃ ┗ 📜realtimeProducts.handlebars
+ ┣ 📜app.js
+ ┗ 📜utils.js
+```
+
+### Desarrollo
+
+La persistencia de los datos está hecha en MongoDB.
+
+## Endpoints
+GET /realtimeproducts
+```
+Desde este endpoint accederemos a todos los productos alojados en la base, se podrá filtrar por sort precio (default: asc), limit (default: 10), query (para categoría o titulo, default: "") y paginado.
+```
+GET /realtimeproducts/:pid
+```
+Desde este endpoint se puede acceder a un producto a través de su id
+```
+POST /realtimeproducts
+```
+Se pueden agregar productos a la lista a través del form que se verán reflejados automáticamente en el navegador.
+```
+PUT /cart
+```
+Se pueden agregar productos a un carrito desde el botón de cada producto en la lista del navegador.
+```
+GET /cart
+```
+Se pueden visualizar los carritos existentes
+```
+DELETE /cart/:cid
+```
+Se pueden eliminar un carrito existe a través de su id
+```
+
+
+**-------------------------------------------------------------------------------------------------------------------------------------------------------------**
 
 ## 2da Pre-Entrega
 

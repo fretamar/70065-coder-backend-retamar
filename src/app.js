@@ -53,8 +53,8 @@ socketServer.on('connection', async socket => {
 
     socket.on('agregarProducto', async product => {
         try {
-            await productModel.create(product)
-            productosFiltrados()
+            await productModel.create(product)  
+            productosFiltrados()  
         } catch (err) {
             console.error("Error al agregar el producto:", err)
         }
@@ -62,13 +62,14 @@ socketServer.on('connection', async socket => {
 
     socket.on('eliminarProducto', async idProducto => {
         try {
-            await productModel.findByIdAndDelete(idProducto)
-            productosFiltrados()
+            await productModel.findByIdAndDelete(idProducto) 
+            productosFiltrados()  
         } catch (err) {
             console.error("Error al eliminar el producto:", err)
         }
     })
 })
+
 
 
 export { socketServer }

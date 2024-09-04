@@ -1,4 +1,3 @@
-// app.js
 import express from 'express'
 import productosRouter from "../routes/productos.routes.js"
 import carritoRouter from "../routes/carrito.routes.js"
@@ -14,6 +13,7 @@ import productModel from './models/product.model.js'
 const app = express()
 const PORT = 8080
 
+//middlewares
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use('/', productosRouter)
@@ -21,7 +21,7 @@ app.use('/', carritoRouter)
 app.use('/', viewsRouter)
 app.use('/', userRouter)
 
-// Configuración de Handlebars
+// Configuracion de Handlebars
 app.engine('handlebars', handlebars.engine())
 app.set('views', __dirname + '/views')
 app.set('view engine', 'handlebars')

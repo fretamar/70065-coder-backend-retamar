@@ -4,7 +4,6 @@ import { socketServer } from "../src/app.js"
 import productModel from "../src/models/product.model.js"
 import { paginate } from "mongoose-paginate-v2"
 
-// En tu controlador de `realtimeproducts`
 viewsRouter.get('/realtimeproducts', async (req, res) => {
     try {
         let { limit = 10, page = 1, query = '', sort = 'asc' } = req.query
@@ -49,7 +48,6 @@ viewsRouter.get('/realtimeproducts', async (req, res) => {
 })
 
 
-// Ruta para obtener un producto específico por ID
 viewsRouter.get('/realtimeproducts/:pid', async (req, res) => {
     try {
         const productId = req.params.pid
@@ -71,7 +69,6 @@ viewsRouter.get('/realtimeproducts/:pid', async (req, res) => {
     }
 })
 
-// Ruta para agregar un nuevo producto
 viewsRouter.post('/realtimeproducts', async (req, res) => {
     const { title, description, price, status, stock, category } = req.body
 

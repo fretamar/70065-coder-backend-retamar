@@ -1,8 +1,6 @@
 const socketServer = io()
 
-socketServer.on('connect', () => {
-    console.log('Conectado al servidor WebSocket')
-})
+ 
 
 document.addEventListener('DOMContentLoaded', () => {
     const agregarProductosForm = document.getElementById('agregarProductos')

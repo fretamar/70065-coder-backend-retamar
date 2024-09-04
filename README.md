@@ -9,6 +9,7 @@
 3. [Uso]
 4. [Estructura del Proyecto]
 5. [Desarrollo]
+6. [Grabación paginado y filtrado por query params](https://github.com/fretamar/70065-coder-backend-retamar/blob/main/assets/Pantalla%20proyecto%20final%20Retamar%2070065.mp4)
 
 ## Instalación
 
